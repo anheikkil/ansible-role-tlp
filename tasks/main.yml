@@ -2,3 +2,10 @@
 # tasks file for ansible_role_tlp
 - name: Include variables
   ansible.builtin.include_tasks: tasks/include_vars.yml
+
+- name: Install tlp
+  ansible.builtin.include_tasks: tasks/install_tlp.yml
+
+- name: Install ThinkPad kernel modules
+  ansible.builtin.include_tasks: tasks/install_thinkpad_kernel_modules.yml
+  when: ansible_system_vendor == "Lenovo"
