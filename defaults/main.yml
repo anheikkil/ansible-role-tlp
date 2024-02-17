@@ -1,5 +1,5 @@
 ---
-# defaults file for ansible_role_template
+# defaults file for ansible_role_tlp
 required_facts:
   - 'distribution'
   - 'distribution_major_version'
