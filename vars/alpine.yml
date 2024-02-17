@@ -1,6 +1,5 @@
 ---
 # vars file for ansible_role_tlp
-thinkpad_kernel_module_package: tp-smapi-dkms
 tlp_packages:
   - tlp
   - tlp-rdw
