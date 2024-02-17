@@ -1,0 +1,4 @@
+---
+# tasks file for ansible_role_template
+- name: Include variables
+  ansible.builtin.include_tasks: tasks/include_vars.yml

@@ -1,0 +1,6 @@
+exclude_paths:
+  - test.yml
+
+skip_list:
+  - 'yaml'
+  - 'role-name'
