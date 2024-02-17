@@ -1,6 +1,8 @@
 ---
 # defaults file for ansible_role_tlp
 required_facts:
+  - 'ansible_product_name'
+  - 'ansible_system_vendor'
   - 'distribution'
   - 'distribution_major_version'
   - 'distribution_version'
