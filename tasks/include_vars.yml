@@ -1,11 +1,5 @@
 ---
 # tasks file for ansible_role_tlp
-- name: Ensure ansible_facts used by role
-  when: not ansible_facts.keys() | list |
-    intersect(required_facts) == required_facts
-  ansible.builtin.setup:
-    gather_subset: min
-
 - name: Set OS specific variables
   ansible.builtin.include_vars: "{{ vars_file }}"
   when: vars_file is file
