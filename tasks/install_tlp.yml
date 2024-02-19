@@ -8,6 +8,7 @@
     name: "{{ tlp_packages }}"
     state: present
     update_cache: true
+  when: tlp_packages is defined
 
 - name: Start tlp service
   tags:
