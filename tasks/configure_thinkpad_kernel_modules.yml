@@ -1,0 +1,21 @@
+---
+# tasks file for ansible_role_tlp
+
+# This kernel module provides battery charge thresholds and recalibration for 
+# ThinkPads before model year 2011, no external kernel modules are required 
+# with newer models and kernel 5.17 or later.
+- name: Install tp-smapi-dkms package
+  tags: package,battery-management
+  become: true
+  ansible.builtin.package:
+    name: "{{ thinkpad_kernel_module_package }}"
+    state: present
+  when: install_tlp and thinkpad_kernel_module_package is defined and ansible_system_vendor == "Lenovo" and ansible_product_name == "X201"
+
+- name: Remove tp-smapi-dkms package
+  tags: package,battery-management
+  become: true
+  ansible.builtin.package:
+    name: "{{ thinkpad_kernel_module_package }}"
+    state: absent
+  when: not install_tlp and thinkpad_kernel_module_package is defined

@@ -3,9 +3,40 @@
 - name: Include variables
   ansible.builtin.include_tasks: tasks/include_vars.yml
 
-- name: Install tlp
-  ansible.builtin.include_tasks: tasks/install_tlp.yml
+- name: Install tlp packages
+  tags: package,power-management
+  become: true
+  ansible.builtin.package:
+    name: "{{ tlp_packages }}"
+    state: present
+  when: install_tlp and tlp_packages is defined
 
-- name: Install ThinkPad kernel modules
-  ansible.builtin.include_tasks: tasks/install_thinkpad_kernel_modules.yml
+- name: Remove tlp packages
+  tags: package,power-management
+  become: true
+  ansible.builtin.package:
+    name: "{{ tlp_packages }}"
+    state: absent
+  when: not install_tlp and tlp_packages is defined
+
+- name: Ensure tlp service is running
+  tags: service,power-management
+  become: true
+  ansible.builtin.service:
+    name: tlp
+    state: started
+  when: install_tlp
+
+- name: Enable tlp service
+  tags: service,power-management
+  become: true
+  ansible.builtin.service:
+    name: tlp
+    enabled: yes
+  when: install_tlp
+
+# TODO: Ensure that the ansible.builtin.service module supports Alpine Linux 
+
+- name: Configure ThinkPad kernel modules
+  ansible.builtin.include_tasks: tasks/configure_thinkpad_kernel_modules.yml
   when: ansible_system_vendor == "Lenovo"

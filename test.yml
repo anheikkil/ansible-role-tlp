@@ -4,9 +4,17 @@
   become: true
 
   pre_tasks:
-    - name: Update package cache
-      ansible.builtin.package:
+    - name: Update package cache (Alpine Linux)
+      tags: package-manager
+      community.general.apk:
         update_cache: true
+      when: ansible_distribution == "Alpine"
+
+    - name: Update package cache (Debian)
+      tags: package-manager
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_distribution == "Debian"
 
   roles:
-    - role: .
+    - role: ../ansible-role-tlp
