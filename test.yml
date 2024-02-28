@@ -16,5 +16,11 @@
         update_cache: true
       when: ansible_distribution == "Debian"
 
+    - name: Update package cache (Void)
+      tags: package-manager
+      community.general.xbps:
+        update_cache: true
+      when: ansible_distribution == "Void"
+
   roles:
     - role: ../ansible-role-tlp
